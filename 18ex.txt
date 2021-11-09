@@ -2,17 +2,17 @@
 #include <ctime>
 using namespace std;
 
-void play(string colorO,string colorX,int move,int size_area) {
+void play(string colorO, string colorX, int move, int size_area) {
     srand(time(NULL));
-    const int SIZE=3;
+    const int SIZE = 3;
     string game[SIZE][SIZE];
 
-    if (size_area==2)
+    if (size_area == 2)
     {
         const int SIZE = 4;
         char game[SIZE][SIZE];
     }
-    else if (size_area==3)
+    else if (size_area == 3)
     {
         const int SIZE = 5;
         char game[SIZE][SIZE];
@@ -27,7 +27,7 @@ void play(string colorO,string colorX,int move,int size_area) {
 
     int count = 0;
     string winner = "*";
-    string player = colorX+"X";
+    string player = colorX + "X";
     while (count != 9)
     {
         count++;
@@ -75,9 +75,9 @@ void play(string colorO,string colorX,int move,int size_area) {
                 else { cout << "Error!!! Select true option!!!!" << endl; }
             }
             game[row][col] = player;
-            player = "0";
+            player = (colorO+"0");
         }
-        else if (player == (colorO+"0"))
+        else if (player == (colorO + "0"))
         {
             int col = 0, row = 0;
             while (true)
@@ -97,14 +97,14 @@ void play(string colorO,string colorX,int move,int size_area) {
                 }
                 if (game[row][col] == "_") { break; }
             }
-            if (game[0][0] == "_" && (game[0][1] == "X" && game[0][2] == "X" || game[1][1] == "X" && game[2][2] == "X" || game[1][0] == "X" && game[2][0] == "X")) {
+            if (game[0][0] == "_" && (game[0][1] == colorX+"X" && game[0][2] == colorX + "X" || game[1][1] == colorX + "X" && game[2][2] == colorX + "X" || game[1][0] == colorX + "X" && game[2][0] == colorX + "X")) {
                 row = 0; col = 0;
             }
-            else if (game[0][1] == "_" && (game[0][0] == "X" && game[0][2] == "X" || game[1][1] == "X" && game[2][1] == "X")) {
+            else if (game[0][1] == "_" && (game[0][0] == colorX + "X" && game[0][2] == colorX + "X" || game[1][1] == colorX + "X" && game[2][1] == colorX + "X")) {
                 row = 0; col = 1;
             }
             game[row][col] = player;
-            player = "X";
+            player = colorX+"X";
         }
 
         if (game[0][0] != "_" && (game[0][0] == game[0][1] && game[0][1] == game[0][2] || game[0][0] == game[1][0] && game[1][0] == game[2][0] || game[0][0] == game[1][1] && game[1][1] == game[2][2])) {
@@ -141,35 +141,28 @@ void play(string colorO,string colorX,int move,int size_area) {
 
 int main()
 {
-    setlocale(0,"");
+    setlocale(0, "");
     cout << "Меню\n1. Начать игру\n2. Настройки\n3. Правила\n4. Выйти\n";
-    int choose; 
+    int choose;
     string colorO;
     string colorX;
     int move;
     int size_area;
-    int stop;
     cin >> choose;
     switch (choose)
     {
     case 1: {
-        if (stop != 4) {
-            colorO = "\x1b[0m";
-            colorX = "\x1b[0m";
-            move = 1;
-            size_area = 1;
-        }
-        play(colorO, colorX,move,size_area);
+        play(colorO, colorX, move, size_area);
         break;
     }
     case 2: {
-        int stop=0;
-        while (stop!=4)
+        int stop = 0;
+        while (stop != 4)
         {
             system("cls");
             cout << "Настройки\n1. Цвет крестика и нолика\n2. Кто первый ходит\n3. Размер поля\n4.Выход\n";
             cin >> choose;
-            while (choose<1||choose>4)
+            while (choose < 1 || choose>4)
             {
                 cin >> choose;
             }
@@ -180,11 +173,11 @@ int main()
                 cout << "Цвет крестика: ";
                 int choose;
                 cin >> choose;
-                while (choose<1||choose>10)
+                while (choose < 1 || choose>10)
                 {
                     cin >> choose;
                 }
-            
+
                 switch (choose)
                 {
                 case 1: colorX = "\x1b[0m"; break;
@@ -226,7 +219,7 @@ int main()
             case 2: {
                 cout << "Кто первый ходит: 1)X 2)O\n";
                 cin >> move;
-                while (move<1||move>2)
+                while (move < 1 || move>2)
                 {
                     cin >> move;
                 }
@@ -235,7 +228,7 @@ int main()
             case 3: {
                 cout << "1)3x3 2)4x4 3)5x5\n";
                 cin >> size_area;
-                while (size_area<1||size_area>3)
+                while (size_area < 1 || size_area>3)
                 {
                     cin >> size_area;
                 }
@@ -258,7 +251,7 @@ int main()
         cout << "Для выхода нажмите 1\n";
         int esc;
         cin >> esc;
-        while (esc!=1)
+        while (esc != 1)
         {
             cin >> esc;
         }
