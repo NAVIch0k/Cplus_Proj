@@ -28,7 +28,7 @@ void getSizeBool() {
 void showMessage() {
     cout << "Привет я функция";
 }
-void getSquare() {
+void getSquare() {//square
     system("cls");
     cout << "[+]Фигура: Квадрат\n";
     cout << "[1]Заполненный\n[2]Пустой\n";
