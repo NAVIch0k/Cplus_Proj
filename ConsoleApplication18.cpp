@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <ctime>
 using namespace std;
 
@@ -7,16 +7,25 @@ void play(string colorO, string colorX, int move, int size_area) {
     const int SIZE = 5;
     string game[SIZE][SIZE];
     int minus_area = 1;
-    if (size_area==1)
+    int count = 0;
+    int random = 9;
+    cout << "количество игроков(1 или 2): ";
+    int players;
+    cin >> players;
+    if (size_area == 1)
     {
         minus_area = 2;
     }
-    else if (size_area==2)
+    else if (size_area == 2)
     {
         minus_area = 1;
+        count = -7;
+        random = 16;
     }
     else {
         minus_area = 0;
+        count = -16;
+        random = 25;
     }
     //values for array game
     for (int i = 0; i < SIZE - minus_area; i++)
@@ -26,7 +35,6 @@ void play(string colorO, string colorX, int move, int size_area) {
         }
     }
 
-    int count = 0;
     string winner = "*";
     string player;
     if (move == 1)
@@ -62,11 +70,11 @@ void play(string colorO, string colorX, int move, int size_area) {
                     for (int j = 0; j < SIZE - minus_area; j++) {
                         cout << n + j << "|";
                     }
-                    if (size_area==1)
+                    if (size_area == 1)
                     {
                         n += 3;
                     }
-                    else if(size_area==2) {
+                    else if (size_area == 2) {
                         n += 4;
                     }
                     else {
@@ -74,13 +82,13 @@ void play(string colorO, string colorX, int move, int size_area) {
                     }
                     cout << endl;
                 }
-                int posotion;
+                int position;
                 bool joke = false;
                 cout << "Select option: ";
-                cin >> posotion;
+                cin >> position;
                 if (size_area == 1)
                 {
-                    switch (posotion)
+                    switch (position)
                     {
                     case 1: row = 0; col = 0; break;
                     case 2: row = 0; col = 1; break;
@@ -92,11 +100,11 @@ void play(string colorO, string colorX, int move, int size_area) {
                     case 8: row = 2; col = 1; break;
                     case 9: row = 2; col = 2; break;
                     }
-                    if (posotion > 0 && posotion < 10 && game[row][col] == "_") { joke = true; }
+                    if (position > 0 && position < 10 && game[row][col] == "_") { joke = true; }
                 }
                 else if (size_area == 2)
                 {
-                    switch (posotion)
+                    switch (position)
                     {
                     case 1: row = 0; col = 0; break;
                     case 2: row = 0; col = 1; break;
@@ -115,13 +123,13 @@ void play(string colorO, string colorX, int move, int size_area) {
                     case 15: row = 3; col = 2; break;
                     case 16: row = 3; col = 3; break;
                     }
-                    if (posotion > 0 && posotion < 17 && game[row][col] == "_") { 
-                        joke = true; 
+                    if (position > 0 && position < 17 && game[row][col] == "_") {
+                        joke = true;
                     }
                 }
                 else if (size_area == 3)
                 {
-                    switch (posotion)
+                    switch (position)
                     {
                     case 1: row = 0; col = 0; break;
                     case 2: row = 0; col = 1; break;
@@ -149,7 +157,7 @@ void play(string colorO, string colorX, int move, int size_area) {
                     case 24: row = 4; col = 3; break;
                     case 25: row = 4; col = 4; break;
                     }
-                    if (posotion > 0 && posotion < 26 && game[row][col] == "_") {
+                    if (position > 0 && position < 26 && game[row][col] == "_") {
                         joke = true;
                     }
                 }
@@ -165,10 +173,21 @@ void play(string colorO, string colorX, int move, int size_area) {
             while (true)
             {
                 bool joke = false;
-                int posotion = 1 + rand() % 9;
+                int position;
+                if (players==1)
+                {
+                    position = 1 + rand() % random;
+                }
+                else {
+                    cout << "__________________" << endl;
+                    cout << "Step O" << endl;
+                    cout << "__________________" << endl;
+                    cout << "Select option: ";
+                    cin >> position;
+                }
                 if (size_area == 1)
                 {
-                    switch (posotion)
+                    switch (position)
                     {
                     case 1: row = 0; col = 0; break;
                     case 2: row = 0; col = 1; break;
@@ -184,7 +203,7 @@ void play(string colorO, string colorX, int move, int size_area) {
                 }
                 else if (size_area == 2)
                 {
-                    switch (posotion)
+                    switch (position)
                     {
                     case 1: row = 0; col = 0; break;
                     case 2: row = 0; col = 1; break;
@@ -203,11 +222,11 @@ void play(string colorO, string colorX, int move, int size_area) {
                     case 15: row = 3; col = 2; break;
                     case 16: row = 3; col = 3; break;
                     }
-                    if (game[row][col] == "_") { joke=true; }
+                    if (game[row][col] == "_") { joke = true; }
                 }
                 else if (size_area == 3)
                 {
-                    switch (posotion)
+                    switch (position)
                     {
                     case 1: row = 0; col = 0; break;
                     case 2: row = 0; col = 1; break;
@@ -281,42 +300,45 @@ void play(string colorO, string colorX, int move, int size_area) {
             {
                 winner = game[0][3];
             }
-            else if (game[1][0] != "_" && game[1][0] == game[1][1] && game[1][1] == game[1][2] && game[1][2]==game[1][3]) {
+            else if (game[1][0] != "_" && game[1][0] == game[1][1] && game[1][1] == game[1][2] && game[1][2] == game[1][3]) {
                 winner = game[1][0];
             }
-            else if (game[2][0] != "_" && game[2][0] == game[2][1] && game[2][1] == game[2][2] && game[2][2]==game[2][3]) {
+            else if (game[2][0] != "_" && game[2][0] == game[2][1] && game[2][1] == game[2][2] && game[2][2] == game[2][3]) {
                 winner = game[2][0];
             }
-            else if (game[3][0] !="_" && game[3][0]==game[3][1] && game[3][1]==game[3][2] && game[3][2]==game[3][3]){
+            else if (game[3][0] != "_" && game[3][0] == game[3][1] && game[3][1] == game[3][2] && game[3][2] == game[3][3]) {
                 winner = game[3][0];
             }
         }
         else {
-            if (game[0][0] != "_" && (game[0][0] == game[0][1] && game[0][1] == game[0][2] && game[0][2] == game[0][3] && game[0][3]==game[0][4] || game[0][0] == game[1][0] && game[1][0] == game[2][0] && game[2][0] == game[3][0] && game[3][0]==game[4][0] || game[0][0] == game[1][1] && game[1][1] == game[2][2] && game[2][2] == game[3][3] && game[3][3]==game[4][4])) {
+            if (game[0][0] != "_" && (game[0][0] == game[0][1] && game[0][1] == game[0][2] && game[0][2] == game[0][3] && game[0][3] == game[0][4] || game[0][0] == game[1][0] && game[1][0] == game[2][0] && game[2][0] == game[3][0] && game[3][0] == game[4][0] || game[0][0] == game[1][1] && game[1][1] == game[2][2] && game[2][2] == game[3][3] && game[3][3] == game[4][4])) {
                 winner = game[0][0];
             }
-            else if (game[0][1] != "_" && game[0][1] == game[1][1] && game[1][1] == game[2][1] && game[2][1] == game[3][1] && game[3][1]==game[4][1]) {
+            else if (game[0][1] != "_" && game[0][1] == game[1][1] && game[1][1] == game[2][1] && game[2][1] == game[3][1] && game[3][1] == game[4][1]) {
                 winner = game[0][1];
             }
-            else if (game[0][2] != "_" && (game[0][2] == game[1][2] && game[1][2] == game[2][2] && game[2][2] == game[3][2] && game[3][2]==game[4][2])) {
+            else if (game[0][2] != "_" && (game[0][2] == game[1][2] && game[1][2] == game[2][2] && game[2][2] == game[3][2] && game[3][2] == game[4][2])) {
                 winner = game[0][2];
             }
-            else if (game[0][3] != "_" && (game[0][3] == game[1][3] && game[1][3] == game[2][3] && game[2][3] == game[3][3] && game[3][3]==game[4][3]))
+            else if (game[0][3] != "_" && (game[0][3] == game[1][3] && game[1][3] == game[2][3] && game[2][3] == game[3][3] && game[3][3] == game[4][3]))
             {
                 winner = game[0][3];
             }
-            else if (game[0][4] != "_" && (game[0][4] == game[1][4] && game[1][4] == game[2][4] && game[2][4] == game[3][4] && game[3][4] == game[4][3]))
+            else if (game[0][4] != "_" && (game[0][4] == game[1][4] && game[1][4] == game[2][4] && game[2][4] == game[3][4] && game[3][4] == game[4][3]|| game[0][4]==game[1][3] && game[1][3]==game[2][2] && game[2][2]==game[3][1] && game[3][1]==game[4][0]))
             {
                 winner = game[0][3];
             }
-            else if (game[1][0] != "_" && game[1][0] == game[1][1] && game[1][1] == game[1][2] && game[1][2] == game[1][3] && game[1][3]==game[1][4]) {
+            else if (game[1][0] != "_" && game[1][0] == game[1][1] && game[1][1] == game[1][2] && game[1][2] == game[1][3] && game[1][3] == game[1][4]) {
                 winner = game[1][0];
             }
-            else if (game[2][0] != "_" && game[2][0] == game[2][1] && game[2][1] == game[2][2] && game[2][2] == game[2][3] && game[2][3]==game[2][4]) {
+            else if (game[2][0] != "_" && game[2][0] == game[2][1] && game[2][1] == game[2][2] && game[2][2] == game[2][3] && game[2][3] == game[2][4]) {
                 winner = game[2][0];
             }
-            else if (game[3][0] != "_" && game[3][0] == game[3][1] && game[3][1] == game[3][2] && game[3][2] == game[3][3] && game[3][3]==game[3][4]) {
+            else if (game[3][0] != "_" && game[3][0] == game[3][1] && game[3][1] == game[3][2] && game[3][2] == game[3][3] && game[3][3] == game[3][4]) {
                 winner = game[3][0];
+            }
+            else if (game[4][0] != "_" && game[4][0] == game[4][1] && game[4][1] == game[4][2] && game[4][2] == game[4][3] && game[4][3] == game[4][4]) {
+                winner = game[4][0];
             }
         }
 
