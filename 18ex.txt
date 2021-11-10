@@ -4,7 +4,7 @@ using namespace std;
 
 void play(string colorO, string colorX, int move, int size_area) {
     srand(time(NULL));
-    const int SIZE = 3;
+    int SIZE = size_area;
     string game[SIZE][SIZE];
 
     if (size_area == 2)
@@ -27,7 +27,15 @@ void play(string colorO, string colorX, int move, int size_area) {
 
     int count = 0;
     string winner = "*";
-    string player = colorX + "X";
+    string player;
+    if (move==1)
+    {
+        player=(colorX + "X");
+    }
+    else
+    {
+        player = (colorO + "0");
+    }
     while (count != 9)
     {
         count++;
@@ -143,8 +151,8 @@ int main()
 {
     setlocale(0, "");
     int choose;
-    string colorO ="\x1b[0m", colorX= "\x1b[0m";
-    int move =1, size_area = 1;
+    string colorO = "\x1b[0m", colorX = "\x1b[0m";
+    int move = 1, size_area = 1;
     bool game = true;
     while (game) {
         cout << "Меню\n1. Начать игру\n2. Настройки\n3. Правила\n4. Выйти\n";
@@ -153,6 +161,7 @@ int main()
         {
         case 1: {
             play(colorO, colorX, move, size_area);
+            game = false;
             break;
         }
         case 2: {
