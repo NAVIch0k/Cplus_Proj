@@ -4,27 +4,38 @@ using namespace std;
 
 void play() {
     srand(time(NULL));
+    system("cls");
     cout << 123;
 }
 
 int set_hp() {
     cout << "Введите кол-во жизней от 1 до 5: ";
-    int hp;
-    while (hp<1||hp>5)
+    int hp=0;
+    while (hp < 1 || hp>5)
     {
-    cin >> hp;
+        cin >> hp;
     }
     return hp;
 }
 
 int set_question() {
     cout << "Введите кол-во вопросов(5,10,15): ";
-    int question;
-    while (question!=5||question!=10||question!=15)
+    int question=0;
+    while (question != 5 && question != 10 && question != 15)
     {
         cin >> question;
     }
     return question;
+}
+
+int set_time() {
+    cout << "Введите время игры(1,2,3): ";
+    int time=0;
+    while (time!=1&&time!=2&&time!=3)
+    {
+        cin >> time;
+    }
+    return time;
 }
 
 int main()
@@ -35,6 +46,7 @@ int main()
     {
         int hp;
         int question;
+        int time;
         cout << "Меню\n1.Начать викторину\n2.Настройки\n3.Выход\n";
         int choose;
         cin >> choose;
@@ -47,22 +59,24 @@ int main()
         }
         case 2: {
             int stop = 0;
-            while (stop!=4)
+            while (stop != 4)
             {
                 system("cls");
-                cout << "1.Кол-во жизней\n2.Время(в минутах)\n3.Кол-во вопросов\n4.Выход";
+                cout << "1.Кол-во жизней\n2.Время(в минутах)\n3.Кол-во вопросов\n4.Выход\n";
                 cin >> choose;
                 switch (choose)
                 {
                 case 1: {
-                    hp = set_hp();;
+                    hp = set_hp();
+                    break;
                 }
                 case 2: {
-
+                    time = set_time();
                     break;
                 }
                 case 3: {
                     question = set_question();
+                    break;
                 }
                 case 4: {
                     stop = 4;
@@ -71,8 +85,9 @@ int main()
                 default:
                     break;
                 }
-                break;
             }
+            system("cls");
+            break;
         }
         case 3: {
             system("cls");
