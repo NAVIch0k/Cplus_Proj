@@ -5,24 +5,25 @@ using namespace std;
 using namespace chrono;
 
 string random_question(string choose[]) {
+	srand(time(NULL));
 	int random;
 	string answers;
-	int check_arr[4]{100,100,100,100};
+	cout << sizeof(answers);
+	int check_arr[4]{ 100,100,100,100 };
 	bool check = true;
 	int n = 0;
-	while (n<4)
+	while (n < 4)
 	{
-		random = 1 + rand() % 4;
+		check = true;
+		random =rand() % 4;
 		for (int i = 0; i < 4 && check; i++)
 		{
-			if (check_arr[i]==random)
+			if (check_arr[i] == random)
 			{
-				random = 1 + rand() % 4;
-				i = 0;
-				check = false;
+				random =rand() % 4;
+				i = -1;
 			}
 		}
-		check = true;
 		for (int i = 0; i < 4 && check; i++)
 		{
 			if (check_arr[i] == 100)
@@ -62,6 +63,7 @@ void play(int hp, int question, int time_play) {
 	steady_clock::time_point tend = steady_clock::now() + minutes(time_play);
 	while (steady_clock::now() < tend && hp > 0 && end > 0)
 	{
+		check = true;
 		random = 1 + rand() % question;
 		for (int i = 0; i < size - n && check; i++)
 		{
@@ -69,10 +71,8 @@ void play(int hp, int question, int time_play) {
 			{
 				random = 1 + rand() % question;
 				i = 0;
-				check = false;
 			}
 		}
-		check = true;
 		for (int i = 0; i < size - n && check; i++)
 		{
 			if (arr[i] == 0)
@@ -86,8 +86,8 @@ void play(int hp, int question, int time_play) {
 		{
 		case 1: {
 			cout << "Размер типа данных int:";
-			string choose[arr_question]{"1)1 байт ", "2)байт ", "3)байт ", "4)байт "};
-			cout<< random_question(choose);
+			string choose[arr_question]{ "1)1 байт ", "2)байт ", "3)байт ", "4)байт " };
+			cout << random_question(choose);
 			cin >> answer;
 			if (answer == 2) {
 				break;
