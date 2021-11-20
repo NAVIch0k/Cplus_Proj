@@ -2,28 +2,30 @@
 #include <ctime>
 #include <chrono>
 #include <string>
+#include <array>
+#include <xstring>
 using namespace std;
 using namespace chrono;
 
-string sort(int plus_rand, int n, int size, int arr_val, int iter, string words[]) {
+string sort(int n, int size, int arr_val, int iter, string words[]) {
 	srand(time(NULL));
-	int random=0;
+	int random = 0;
 	string answer;
-	int arr[4]{ arr_val,arr_val,arr_val,arr_val };
-	int iteration=iter;
-	while (iteration >0)
+	int arr[15]{ arr_val,arr_val,arr_val,arr_val,arr_val,arr_val,arr_val,arr_val,arr_val,arr_val,arr_val,arr_val,arr_val,arr_val,arr_val };
+	int iteration = iter;
+	while (iteration > 0)
 	{
-		random = plus_rand + rand() % size;
+		random = rand() % size;
 		bool check = true;
-		for (int i = 0; i < size - n && check; i++)
+		for (int i = 0; i < 15 - n; i++)
 		{
 			if (arr[i] == random)
 			{
-				random = plus_rand + rand() % size;
+				random = rand() % size;
 				i = -1;
 			}
 		}
-		for (int i = 0; i < size - n && check; i++)
+		for (int i = 0; i < 15 - n && check; i++)
 		{
 			if (arr[i] == arr_val)
 			{
@@ -42,15 +44,15 @@ void play(int hp, int question, int time_play, int help) {
 	system("cls");
 
 	int end = question;
-	string empty[15]{ "1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"};
+	string empty[15]{ "1","2","3","4","5","6","7","8","9","10","11","12","13","14","15" };
 	int answer;
 	int help_play = help;
-	int honey=0;
+	int honey = 0;
 	const int arr_question = 4;
 
 	const int size = 15;
 
-	int n = 0;
+	int n = 1;
 	if (question == 5)
 	{
 		n = 10;
@@ -59,15 +61,38 @@ void play(int hp, int question, int time_play, int help) {
 	{
 		n = 5;
 	}
+
+	int arr[15]{ 0 };
+
+
 	steady_clock::time_point tend = steady_clock::now() + minutes(time_play);
 	while (steady_clock::now() < tend && hp > 0 && end > 0)
 	{
-		switch (stoi(sort(1,n,size,0,1,empty)))
+		int choose_question = stoi(sort(n, 15, 50, 1, empty));
+		bool check = true;
+		for (int i = 0; i < 15 - n; i++)
+		{
+			if (arr[i] == choose_question)
+			{
+				choose_question = stoi(sort(n, 15, 50, 1, empty));
+				i = -1;
+			}
+		}
+		for (int i = 0; i < 15 - n && check; i++)
+		{
+			if (arr[i] == 0)
+			{
+				arr[i] = choose_question;
+				check = false;
+
+			}
+		}
+		switch (choose_question)
 		{
 		case 1: {
 			cout << "Размер типа данных int: ";
 			string choose[arr_question]{ "1)1 байт ", "2)2байт ", "3)3байт ", "4)4байт " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(11, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -95,7 +120,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 2: {
 			cout << "Где я нахожусь: ";
 			string choose[arr_question]{ "1)Москва ", "2)Псков ", "3)Барнаул ", "4)Казахстан " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(11, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -123,7 +148,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 3: {
 			cout << "В какой мы группе: ";
 			string choose[arr_question]{ "1)КС ", "2)ОСАТ ", "3)ИСП ", "4)ЛОЛИ " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(0, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -151,7 +176,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 4: {
 			cout << "Какая у нас площадка: ";
 			string choose[arr_question]{ "1)ОП1 ", "2)ОП3 ", "3)ОП9 ", "4)ОП6 " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(0, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -179,7 +204,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 5: {
 			cout << "В каком колледже мы учимся: ";
 			string choose[arr_question]{ "1)КС54 ", "2)ЛОШ87 ", "3)ФЬГ23 ", "4)ФщО33 " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(0, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -207,7 +232,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 6: {
 			cout << "Когда у миши день рождения: ";
 			string choose[arr_question]{ "1)сегодня ", "2)13 февраля ", "3)23 ноября ", "4)1 декабря " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(0, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -235,7 +260,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 7: {
 			cout << "Где живет сеня: ";
 			string choose[arr_question]{ "1)GUM ", "2)Genshin ", "3)Москва ", "4)В компе " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(0, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -263,7 +288,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 8: {
 			cout << "У меня будет автомат: ";
 			string choose[arr_question]{ "1)да ", "2)нет ", "3)наверное ", "4)скорее всего " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(0, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -291,7 +316,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 9: {
 			cout << "Нашь директор: ";
 			string choose[arr_question]{ "1)Гренов ", "2)Хамов ", "3)Сомов ", "4)Щербинков " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(0, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -319,7 +344,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 10: {
 			cout << "Практика проходит в...: ";
 			string choose[arr_question]{ "1)Кузьминки ", "2)Деревня ", "3)Колледж ", "4)Ущербина " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(0, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -347,7 +372,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 11: {
 			cout << "На каком яп мы проходим практику: ";
 			string choose[arr_question]{ "1)С++ ", "2)С# ", "3)JS ", "4)1C " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(0, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -375,7 +400,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 12: {
 			cout << "Запомни только	1, а другое...: ";
 			string choose[arr_question]{ "1)забудь ", "2)вспомни ", "3)сделай ", "4)не знаю " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(0, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -403,7 +428,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 13: {
 			cout << "150+150=...: ";
 			string choose[arr_question]{ "1)300 ", "2)3 сотни ", "3)0 ", "4)3000 " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(0, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -431,7 +456,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 14: {
 			cout << "Самое большое млекопитающие: ";
 			string choose[arr_question]{ "1)зебра ", "2)слон ", "3)кит ", "4)дельфин " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(0, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -459,7 +484,7 @@ void play(int hp, int question, int time_play, int help) {
 		case 15: {
 			cout << "отец это ...: ";
 			string choose[arr_question]{ "1)Орлов ", "2)Николаенко ", "3)Папич ", "4)Отец " };
-			cout << sort(0, 0, 4, 100, 4,choose) << "5)Подсказка\n";
+			cout << sort(0, 4, 100, 4, choose) << "5)Подсказка\n";
 			cin >> answer;
 			if (answer == 5 && help_play > 0)
 			{
@@ -490,7 +515,7 @@ void play(int hp, int question, int time_play, int help) {
 		end--;
 	}
 	if (hp == 0) {
-		cout << "У вас закончились жизни. Вы набрали "<<honey<<" очков.";
+		cout << "У вас закончились жизни. Вы набрали " << honey << " очков.";
 	}
 	else if (end == 0) {
 		cout << "Игра закончена. Вы набрали " << honey << " очков.";
@@ -525,7 +550,7 @@ int set_question() {
 int set_time() {
 	cout << "Введите время игры(1,2,3): ";
 	int time = 0;
-	while (time != 1 && time != 2 && time != 3)
+	while (time != 1 && time != 2 && time != 3 && time != 10)
 	{
 		cin >> time;
 	}
@@ -549,10 +574,10 @@ int main()
 	int question = 5;
 	int time_play = 2;
 	int help = 3;
+	int choose;
 	while (game)
 	{
 		cout << "Меню\n1.Начать викторину\n2.Настройки\n3.Выход\n";
-		int choose;
 		cin >> choose;
 		switch (choose)
 		{
@@ -603,6 +628,7 @@ int main()
 			break;
 		}
 		default:
+			cin >> choose;
 			system("cls");
 			break;
 		}
